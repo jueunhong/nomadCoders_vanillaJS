@@ -1,7 +1,8 @@
 const toDoForm = document.getElementById("todo-form");
 const toDoList = document.getElementById("todo-list");
 const toDoInput = toDoForm.querySelector("input");
-const toDos = [];
+let toDos = [];
+const TODOS_KEY = "todos";
 
 function saveToDos() {
     localStorage.setItem("todos",JSON.stringify(toDos));
@@ -37,3 +38,15 @@ function handleToDoSubmit(e) {
 
 toDoForm.addEventListener("submit", handleToDoSubmit); 
 //submit을 하면 handleToDoSubmit이라는 함수를 실행
+
+// function sayHello(item){
+//     console.log("this is the turn of", item);
+// }
+
+const savedToDos = localStorage.getItem(TODOS_KEY);
+
+if(savedToDos !== null) {
+    const parsedToDos = JSON.parse(savedToDos);
+    toDos = parsedToDos; //toDos array값 업데이트
+    parsedToDos.forEach(paintToDo);
+}
